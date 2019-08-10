@@ -42,6 +42,9 @@ public class ZTargeting : MonoBehaviour {
             if (distance > 100.0f || Input.GetKeyDown(KeyCode.Space)) {
                 StopZTargeting();
             }
+            else {
+                ZTargetingMovement();
+            }
         }
     }
 
@@ -71,15 +74,16 @@ public class ZTargeting : MonoBehaviour {
         if (stickDirection.magnitude > 0) {
             var diffBetweenDirections = Mathf.DeltaAngle(stickDirectionEuler, directionToEnemyEuler);
             Vector2 directionToMove;
-            if (Mathf.Abs(diffBetweenDirections) < 90 
+            if (Mathf.Abs(diffBetweenDirections) < 90
                 && Mathf.Abs(diffBetweenDirections) > 45
                 && distanceToEnemy < 50.0f) {
                 if (diffBetweenDirections > 0) {
                     directionToMove = VectorRelativeAngle(directionToEnemyEuler - 88); //+ stickDirection * 0.6f;
                 }
                 else {
-                    directionToMove = VectorRelativeAngle(directionToEnemyEuler + 88);// + stickDirection * 0.6f;
+                    directionToMove = VectorRelativeAngle(directionToEnemyEuler + 88); // + stickDirection * 0.6f;
                 }
+
                 faceAwayFrames = 0;
             }
             else {
@@ -87,7 +91,7 @@ public class ZTargeting : MonoBehaviour {
                 faceAwayFrames++;
             }
 
-            PlayerBody.AddForce(directionToMove.normalized * moveSpeed);
+            PlayerBody.AddForce(directionToMove.normalized * moveSpeed * 0.5f);
         }
         else {
             faceAwayFrames = 0;

@@ -6,6 +6,7 @@ public class WasdMovement : MonoBehaviour
     private Rigidbody _body;
     public bool zTargeting;
     private GameObject ClosestEnemy;
+    public Transform PlayerMesh;
     
     void Start() {
         _body = GetComponent<Rigidbody>();
@@ -39,5 +40,6 @@ public class WasdMovement : MonoBehaviour
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -0.5f);
+        PlayerMesh.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, direction));
     }
 }

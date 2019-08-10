@@ -5,43 +5,54 @@ using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour {
     public Transform Weapon;
+    public int attackForce = 1000;
 
     private bool Attacking = false;
+    private int attackDegree = -45; 
 
     private WasdMovement _movement;
+    private Rigidbody playerBody;
 
     // Start is called before the first frame update
     void Start() {
         _movement = GetComponent<WasdMovement>();
+        playerBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            Attack();
+        if (! Attacking && Input.GetMouseButtonDown(0)) {
+            StartAttack();
+        }
+
+        if (Attacking) {
+            var playerDirection = WasdMovement.LastDirection;
+            var playerDirectionEuler = Vector2.SignedAngle(Vector2.right, playerDirection);
+            var weaponEulerDirection = playerDirectionEuler + attackDegree;
+            
+            var playerPosition = transform.position;
+            Weapon.SetPositionAndRotation(
+                playerPosition + Vector3.back * 5,
+                Quaternion.Euler(0, 0, weaponEulerDirection)
+            );
+            attackDegree += 10;
+            if (attackDegree > 45) {
+                StopAttack();
+            }
         }
     }
 
-    private async void Attack() {
-        Attacking = true;
-        _movement.enabled = false;
-        var playerDirection = WasdMovement.LastDirection;
-        var playerDirectionEuler = Vector2.SignedAngle(Vector2.right, playerDirection);
-        Weapon.gameObject.SetActive(true);
-
-        for (int i = -45; i < 45; i += 10) {
-            var weaponEulerDirection = playerDirectionEuler + i;
-            var playerPosition = transform.position;
-            Weapon.SetPositionAndRotation(
-                playerPosition,
-                Quaternion.Euler(0, 0, weaponEulerDirection)
-            );
-            await Task.Delay(1);
-            transform.Translate(playerDirection * 2f);
-        }
-
-        Weapon.gameObject.SetActive(false);
+    public void StopAttack() {
         _movement.enabled = true;
         Attacking = false;
+        Weapon.gameObject.SetActive(false);
+    }
+
+    private void StartAttack() {
+        Attacking = true;
+        _movement.enabled = false;
+        Weapon.gameObject.SetActive(true);
+        attackDegree = -45;
+        playerBody.AddForce(WasdMovement.LastDirection * attackForce, ForceMode.Impulse);
     }
 }
