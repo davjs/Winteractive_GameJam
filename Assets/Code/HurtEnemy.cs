@@ -29,7 +29,10 @@ public class HurtEnemy : MonoBehaviour {
             playerBody.AddForce(towardsPlayerVector * 1000, ForceMode.Impulse);
         }
         else {
-            var wall = other.GetComponent<DestroyAble>();
+            var destroyable = other.GetComponent<DestroyAble>();
+            if (destroyable) {
+                destroyable.Damage(Damage);                
+            }
         }
     }
 }

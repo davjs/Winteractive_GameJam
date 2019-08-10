@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
     private Rigidbody _body;
     private bool _dead = false;
     private bool attacking = false;
+    private Vector2 OriginalPosition;
     public Animator Animator;
     public float attackChance = 0.1f;
 

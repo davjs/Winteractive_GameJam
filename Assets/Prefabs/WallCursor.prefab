@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mesh: {fileID: 87031658103630063}
-  Wall: {fileID: 3664760515295923242, guid: a1a06d4d7f2e7ed44a62d1a3e3b97cd5, type: 3}
+  ToBuild: {fileID: 3664760515295923242, guid: a1a06d4d7f2e7ed44a62d1a3e3b97cd5, type: 3}
   wallSize: 5
+  TypeCost: Wood
 --- !u!1 &87031658103630060
 GameObject:
   m_ObjectHideFlags: 0
