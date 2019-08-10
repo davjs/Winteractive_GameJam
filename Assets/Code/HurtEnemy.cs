@@ -28,5 +28,8 @@ public class HurtEnemy : MonoBehaviour {
             await Task.Delay(100);
             playerBody.AddForce(towardsPlayerVector * 1000, ForceMode.Impulse);
         }
+        else {
+            var wall = other.GetComponent<DestroyAble>();
+        }
     }
 }
