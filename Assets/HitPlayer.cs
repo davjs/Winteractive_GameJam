@@ -8,14 +8,17 @@ public class HitPlayer : MonoBehaviour {
     private GameObject player;
     public Transform HitPosition;
     public float hitRadius;
+    private Health _playerHealth;
 
     private void Start() {
         player = GameObject.FindWithTag("Player");
+        _playerHealth = player.GetComponent<Health>();
     }
 
     public void Hit() {
-        if (Vector3.Distance(HitPosition.position, player.transform.position) < hitRadius) {
-            
+        var distance = Vector3.Distance(HitPosition.position, player.transform.position);
+        if (distance < hitRadius) {
+            _playerHealth.Current -= damage;
         }
     }
 }

@@ -2,56 +2,67 @@
 using UnityEngine;
 
 public class ZTargeting : MonoBehaviour {
-    private GameObject Target;
-    private GameObject PossibleTarget;
-    public GameObject Marker;
-    public GameObject OpenMarker;
-    public GameObject SelectedMarker;
-    public Transform PlayerMesh;
-    private WasdMovement WasdMovement;
-    private Rigidbody PlayerBody;
-    private int faceAwayFrames = 0;
+    public GameObject marker;
+    public GameObject openMarker;
+    public GameObject selectedMarker;
+    public Transform playerMesh;
+    private WasdMovement _wasdMovement;
+    private Rigidbody _playerBody;
+    private int _faceAwayFrames = 0;
+    private GameObject _target;
+    private bool zTargeting;
+    private GameObject _possibleTarget;
 
     void Start() {
         var closeEnemies = Enemy.Enemies.OrderBy(x =>
             (x.transform.position - transform.position).magnitude
         );
-        PossibleTarget = closeEnemies.FirstOrDefault()?.gameObject;
-        WasdMovement = GetComponent<WasdMovement>();
-        PlayerBody = GetComponent<Rigidbody>();
+        _possibleTarget = closeEnemies.FirstOrDefault()?.gameObject;
+        _wasdMovement = GetComponent<WasdMovement>();
+        _playerBody = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        if (Target == null) {
-            var closeEnemies = Enemy.Enemies.OrderBy(x =>
-                (x.transform.position - transform.position).magnitude
-            );
-            PossibleTarget = closeEnemies.FirstOrDefault()?.gameObject;
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                StartZTargeting();
-            }
-
-            if (PossibleTarget != null) {
-                Marker.transform.position = PossibleTarget.transform.position;
-            }
-        }
-        else {
-            ZTargetingMovement();
-            Marker.transform.position = Target.transform.position;
-            var distance = (Target.transform.position - transform.position).magnitude;
-            if (distance > 100.0f || Input.GetKeyDown(KeyCode.Space)) {
+        if (zTargeting) {
+            if (_target == null) {
                 StopZTargeting();
             }
             else {
                 ZTargetingMovement();
+                marker.transform.position = _target.transform.position;
+                var distance = (_target.transform.position - transform.position).magnitude;
+                if (distance > 100.0f || Input.GetKeyDown(KeyCode.Space)) {
+                    StopZTargeting();
+                }
+                else {
+                    ZTargetingMovement();
+                }
+            }
+        }
+
+        if (!zTargeting) {
+            var closeEnemies = Enemy.Enemies.OrderBy(x =>
+                (x.transform.position - transform.position).magnitude
+            );
+            _possibleTarget = closeEnemies.FirstOrDefault()?.gameObject;
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                StartZTargeting();
+            }
+
+            if (_possibleTarget != null) {
+                marker.transform.position = _possibleTarget.transform.position;
+                marker.SetActive(true);
+            }
+            else {
+                marker.SetActive(false);
             }
         }
     }
 
     private void ZTargetingMovement() {
-        var moveSpeed = WasdMovement.speed;
+        var moveSpeed = _wasdMovement.speed;
 
-        var toEnemyVector = (Target.transform.position - transform.position);
+        var toEnemyVector = (_target.transform.position - transform.position);
         var distanceToEnemy = toEnemyVector.magnitude;
         var directionToEnemy = toEnemyVector.normalized;
         var directionToEnemyEuler = Vector2.SignedAngle(Vector2.right, directionToEnemy);
@@ -84,27 +95,27 @@ public class ZTargeting : MonoBehaviour {
                     directionToMove = VectorRelativeAngle(directionToEnemyEuler + 88); // + stickDirection * 0.6f;
                 }
 
-                faceAwayFrames = 0;
+                _faceAwayFrames = 0;
             }
             else {
                 directionToMove = stickDirection;
-                faceAwayFrames++;
+                _faceAwayFrames++;
             }
 
-            PlayerBody.AddForce(directionToMove.normalized * moveSpeed * 0.5f);
+            _playerBody.AddForce(directionToMove.normalized * moveSpeed * 0.5f);
         }
         else {
-            faceAwayFrames = 0;
+            _faceAwayFrames = 0;
         }
 
-        var faceEnemy = faceAwayFrames < 30;
+        var faceEnemy = _faceAwayFrames < 30;
         if (faceEnemy) {
             WasdMovement.LastDirection = directionToEnemy;
-            PlayerMesh.rotation = Quaternion.Euler(0, 0, directionToEnemyEuler);
+            playerMesh.rotation = Quaternion.Euler(0, 0, directionToEnemyEuler);
         }
         else {
             WasdMovement.LastDirection = stickDirection;
-            PlayerMesh.rotation = Quaternion.Euler(0, 0, stickDirectionEuler);
+            playerMesh.rotation = Quaternion.Euler(0, 0, stickDirectionEuler);
         }
     }
 
@@ -113,17 +124,19 @@ public class ZTargeting : MonoBehaviour {
     }
 
     private void StartZTargeting() {
-        Target = PossibleTarget;
-        OpenMarker.SetActive(false);
-        SelectedMarker.SetActive(true);
-        WasdMovement.zTargeting = true;
+        _target = _possibleTarget;
+        openMarker.SetActive(false);
+        selectedMarker.SetActive(true);
+        _wasdMovement.zTargeting = true;
+        zTargeting = true;
     }
 
     private void StopZTargeting() {
-        PossibleTarget = Target;
-        Target = null;
-        OpenMarker.SetActive(true);
-        SelectedMarker.SetActive(false);
-        WasdMovement.zTargeting = false;
+        _possibleTarget = _target;
+        _target = null;
+        openMarker.SetActive(true);
+        selectedMarker.SetActive(false);
+        _wasdMovement.zTargeting = false;
+        zTargeting = false;
     }
 }

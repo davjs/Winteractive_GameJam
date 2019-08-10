@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour {
     void Update() {
         if (_dead) return;
 
-        if (Vector2.Distance(transform.position, _player.position) < 200) {
+        if (Vector2.Distance(transform.position, _player.position) < 100) {
             var direction = (_player.position - transform.position).normalized;
             Mesh.rotation = Quaternion.Euler(0,0 , Vector2.SignedAngle(Vector2.right, direction));
             _body.AddForce(direction * speed);

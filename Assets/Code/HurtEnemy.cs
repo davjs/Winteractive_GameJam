@@ -17,7 +17,7 @@ public class HurtEnemy : MonoBehaviour {
             enemy.health -= Damage;
             var towardsPlayerVector = (transform.position - playerBody.transform.position).normalized;
             var enemyBody = enemy.gameObject.GetComponent<Rigidbody>();
-            enemyBody.AddForce(-towardsPlayerVector * 400, ForceMode.Impulse);
+            enemyBody.AddForce(-towardsPlayerVector * 1000, ForceMode.Impulse);
             if (weaponController) {
 //                weaponController.StopAttack();
             }
@@ -26,7 +26,7 @@ public class HurtEnemy : MonoBehaviour {
             }
 
             await Task.Delay(100);
-            playerBody.AddForce(towardsPlayerVector * 500, ForceMode.Impulse);
+            playerBody.AddForce(towardsPlayerVector * 1000, ForceMode.Impulse);
         }
     }
 }
