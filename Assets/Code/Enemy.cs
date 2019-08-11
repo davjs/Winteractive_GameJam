@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _body = GetComponent<Rigidbody>();
         OriginalPosition = transform.position;
-        reach = Random.value * 2.0f;
+        reach = 0.6f + Random.value * 1.5f;
     }
 
     private void OnDestroy() {
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour {
         if (guard && distanceFromGuardpos > 200 * reach) {
             retreating = true;
         }
-        if (playerDistanceFromGaurdPos > 150 * reach) {
+        if (guard && playerDistanceFromGaurdPos > 150 * reach) {
             retreating = true;
         }
 
