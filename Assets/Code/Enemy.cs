@@ -19,12 +19,14 @@ public class Enemy : MonoBehaviour {
     private Vector2 OriginalPosition;
     public Animator Animator;
     public float attackChance = 0.1f;
+    public static float reach;
 
     private void Start() {
         Enemies.Add(this);
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _body = GetComponent<Rigidbody>();
         OriginalPosition = transform.position;
+        reach = Random.value * 2.0f;
     }
 
     private void OnDestroy() {
@@ -37,16 +39,17 @@ public class Enemy : MonoBehaviour {
        
         var PlayerDistance = Vector2.Distance(transform.position, _player.position);
         var distanceFromGuardpos = Vector2.Distance(transform.position, OriginalPosition);
+        var playerDistanceFromGaurdPos = Vector2.Distance(_player.position, OriginalPosition);
         
-        if (guard && distanceFromGuardpos > 100) {
+        if (guard && distanceFromGuardpos > 200 * reach) {
             retreating = true;
         }
-        if (guard && distanceFromGuardpos > 30 && PlayerDistance > distanceFromGuardpos) {
+        if (playerDistanceFromGaurdPos > 150 * reach) {
             retreating = true;
         }
 
         if (retreating) {
-            if (distanceFromGuardpos < 10) {
+            if (distanceFromGuardpos < 20) {
                 retreating = false;
                 return;
             }
@@ -56,7 +59,12 @@ public class Enemy : MonoBehaviour {
             _body.AddForce(direction * speed);
         }
 
-        if (!retreating && PlayerDistance < 100) {
+        var canFollowPlayer = PlayerDistance < 120 * reach;
+        if (guard) {
+            canFollowPlayer = playerDistanceFromGaurdPos < 100 * reach;
+        }
+
+        if (canFollowPlayer) {
             var direction = (_player.position - transform.position).normalized;
             Mesh.rotation = Quaternion.Euler(0,0 , Vector2.SignedAngle(Vector2.right, direction));
             _body.AddForce(direction * speed);
@@ -64,6 +72,14 @@ public class Enemy : MonoBehaviour {
 
         if (!attacking && !retreating && Vector3.Distance(_player.position, transform.position) < 50.0f && Random.value < attackChance) {
             Animator.SetTrigger("Attack"); 
+        }
+    }
+    
+    
+    public void Damage(int dmg) {
+        health -= dmg;
+        if (health <= 0) {
+            Destroy(gameObject);
         }
     }
 }

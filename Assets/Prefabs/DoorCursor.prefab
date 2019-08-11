@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 87031656458094079}
-  - component: {fileID: 1707286226708066995}
+  - component: {fileID: 1147684646674955882}
   m_Layer: 0
-  m_Name: WallCursor
+  m_Name: DoorCursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1707286226708066995
+--- !u!114 &1147684646674955882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,10 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mesh: {fileID: 87031658103630063}
-  toBuild: {fileID: 3664760515295923242, guid: a1a06d4d7f2e7ed44a62d1a3e3b97cd5, type: 3}
+  toBuild: {fileID: 1571578070111253897, guid: b918e7a2ceda0fc4cb98bfe65421d52d, type: 3}
   wallSize: 5
-  costType: Wood
-  cost: 1
+  costType: Glass
 --- !u!1 &87031658103630060
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +75,7 @@ Transform:
   m_GameObject: {fileID: 87031658103630060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 5, y: 5, z: 20}
+  m_LocalScale: {x: 5, y: 1, z: 28}
   m_Children: []
   m_Father: {fileID: 87031656458094079}
   m_RootOrder: 0
@@ -106,7 +105,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e98c2ec5237281f49ad9b21e8afbdf31, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
