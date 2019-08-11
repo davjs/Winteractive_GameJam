@@ -29,16 +29,16 @@ public class Enemy : MonoBehaviour {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _body = GetComponent<Rigidbody>();
         OriginalPosition = transform.position;
-        reach = 0.6f + Random.value * 1.0f;
+        reach = 0.8f + Random.value * 1.0f;
     }
 
     private void OnDestroy() {
         Enemies.Remove(this);
     }
 
-    // Update is called once per frame
     void Update() {
         if (_dead) return;
+        if (attacking) return;
        
         var PlayerDistance = Vector2.Distance(transform.position, _player.position);
         var distanceFromGuardpos = Vector2.Distance(transform.position, OriginalPosition);
@@ -73,9 +73,14 @@ public class Enemy : MonoBehaviour {
             _body.AddForce(direction * speed);
         }
 
-        if (!attacking && !retreating && Vector3.Distance(_player.position, transform.position) < 50.0f && Random.value < attackChance) {
-            Animator.SetTrigger("Attack"); 
+        if (!attacking && !retreating && Vector2.Distance(_player.position, transform.position) < 12.0f && Random.value < attackChance) {
+            Animator.SetTrigger("Attack");
+            attacking = true;
         }
+    }
+
+    public void AttackFinished() {
+        attacking = false;
     }
     
     

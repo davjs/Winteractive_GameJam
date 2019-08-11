@@ -5,7 +5,6 @@ using UnityEngine;
 public class HurtEnemy : MonoBehaviour {
     public int Damage;
     private Rigidbody playerBody;
-    public MeleeWeapon weaponController;
 
     private void Start() {
         playerBody = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
@@ -18,9 +17,6 @@ public class HurtEnemy : MonoBehaviour {
             var towardsPlayerVector = (transform.position - playerBody.transform.position).normalized;
             var enemyBody = enemy.gameObject.GetComponent<Rigidbody>();
             enemyBody.AddForce(-towardsPlayerVector * 1000, ForceMode.Impulse);
-            if (weaponController) {
-//                weaponController.StopAttack();
-            }
             enemy.Damage(Damage);
             
             await Task.Delay(100);

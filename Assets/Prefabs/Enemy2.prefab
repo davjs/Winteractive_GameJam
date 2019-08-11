@@ -343,7 +343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3373863184602113332}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 6516257695173937881}
@@ -455,7 +455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6507175239265528277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.2, y: -95.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3373863184602113335}
@@ -474,15 +474,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71fd10e0769c472cb3b4650bcfc1ac4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 12
   Mesh: {fileID: 3373863184602113335}
   speed: 250
   guard: 0
   retreating: 0
   Animator: {fileID: 4273643691823176927}
   attackChance: 0.1
+  reach: 0
+  DeadPrefab: {fileID: 0}
   BodyMesh: {fileID: 3373863183673698179}
-  HurtMaterial: {fileID: 0}
 --- !u!54 &6507175239265528274
 Rigidbody:
   m_ObjectHideFlags: 0

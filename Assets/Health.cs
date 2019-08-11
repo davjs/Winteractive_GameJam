@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class Health : MonoBehaviour {
     public Transform HealthBar;
 
     private Vector3 healthBarOriginalScale;
+    public MeshRenderer Body;
+    private Material OriginalMaterial;
 
     public int Current {
         get { return current; }
@@ -25,12 +28,18 @@ public class Health : MonoBehaviour {
         }
     }
 
-    // Start is called before the first frame update
+    public async void Damage(int dmg) {
+        Current -= dmg;
+        Body.material = Prefabs.Get.HurtMaterial;
+        await Task.Delay(50);
+        if (Body != null) {
+            Body.material = OriginalMaterial;
+        }
+    }
+
     void Start() {
         healthBarOriginalScale = HealthBar.localScale;
         Current = Max;
-    }
-
-    void Update() {
+        OriginalMaterial = Body.material;
     }
 }

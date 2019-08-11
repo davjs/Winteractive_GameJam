@@ -708,13 +708,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71fd10e0769c472cb3b4650bcfc1ac4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 20
   Mesh: {fileID: 3373863184602113335}
   speed: 250
   guard: 0
   retreating: 0
   Animator: {fileID: 4273643691823176927}
-  attackChance: 0.1
+  attackChance: 0.5
   reach: 0
   DeadPrefab: {fileID: 6507175239265528277, guid: 94d49a13eac428a4cb9964bd2d70ad40,
     type: 3}
@@ -816,7 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9935f4b7aa966a341b64577530fc3aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
   HitPosition: {fileID: 8062523967286195681}
   hitRadius: 14
 --- !u!1 &8333043821552370356

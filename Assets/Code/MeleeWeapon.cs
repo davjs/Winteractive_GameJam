@@ -12,6 +12,7 @@ public class MeleeWeapon : MonoBehaviour {
 
     private WasdMovement _movement;
     private Rigidbody playerBody;
+    public AudioSource hit1;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,6 +24,7 @@ public class MeleeWeapon : MonoBehaviour {
     void Update() {
         if (! Attacking && Input.GetMouseButtonDown(0)) {
             StartAttack();
+            hit1.Play();
         }
 
         if (Attacking) {

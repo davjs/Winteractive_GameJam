@@ -16,17 +16,17 @@ public class Spawner : MonoBehaviour {
         SpawnEnemy(130);
         SpawnEnemy(130);
 
-        StartCoroutine(Wave("Wave 1",1, 40));
-        StartCoroutine(Wave("MORE",3, 60));
-        StartCoroutine(Wave("Get rect",6, 70));
-        StartCoroutine(Wave("lol",12, 80));
+        StartCoroutine(Wave("Wave 1",1, 50));
+        StartCoroutine(Wave("MORE",2, 60));
+        StartCoroutine(Wave("Get rect",4, 70));
+        StartCoroutine(Wave("lol",6, 80));
     }
 
     IEnumerator Wave(string name,int min, int count) {
         yield return new WaitForSeconds(min * 60);
         for (int i = 0; i < count; i++) {
             var enemy = SpawnEnemy(80.0f * Random.value + 50) ;
-            enemy.reach = 2.8f;
+            enemy.reach = 3.0f;
         }
 
         TextMesh.text = name;
@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour {
             playerPos
             + Random.insideUnitCircle.normalized * (Random.value * 200.0f + additionalOffset),
             Quaternion.identity);
-        enemy.speed *= (0.6f + Random.value * 0.6f);
+        enemy.speed *= (0.8f + Random.value * 0.7f);
         return enemy;
     }
 }
