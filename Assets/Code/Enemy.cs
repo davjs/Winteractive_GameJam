@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,14 +20,16 @@ public class Enemy : MonoBehaviour {
     private Vector2 OriginalPosition;
     public Animator Animator;
     public float attackChance = 0.1f;
-    public static float reach;
+    public float reach;
+    public GameObject DeadPrefab;
+    public MeshRenderer BodyMesh;
 
     private void Start() {
         Enemies.Add(this);
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _body = GetComponent<Rigidbody>();
         OriginalPosition = transform.position;
-        reach = 0.6f + Random.value * 1.5f;
+        reach = 0.6f + Random.value * 1.0f;
     }
 
     private void OnDestroy() {
@@ -76,10 +79,23 @@ public class Enemy : MonoBehaviour {
     }
     
     
-    public void Damage(int dmg) {
+    public async void Damage(int dmg) {
         health -= dmg;
         if (health <= 0) {
+            if (DeadPrefab) {
+                var gore = Instantiate(DeadPrefab, transform.position, transform.rotation);
+                Destroy(gore, 15);
+            }
             Destroy(gameObject);
         }
+        else {
+            var oldMaterial = BodyMesh.material;
+            BodyMesh.material = Prefabs.Get.HurtMaterial;
+            await Task.Delay(50);
+            if (BodyMesh != null) {
+                BodyMesh.material = oldMaterial;
+            }
+        }
+        
     }
 }

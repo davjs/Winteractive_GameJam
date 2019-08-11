@@ -21,12 +21,12 @@ public class HurtEnemy : MonoBehaviour {
             if (weaponController) {
 //                weaponController.StopAttack();
             }
-            if (enemy.health <= 0) {
-                Destroy(enemy.gameObject);
-            }
-
+            enemy.Damage(Damage);
+            
             await Task.Delay(100);
-            playerBody.AddForce(towardsPlayerVector * 1000, ForceMode.Impulse);
+            if (playerBody != null) {
+                playerBody.AddForce(towardsPlayerVector * 1000, ForceMode.Impulse);
+            }
         }
         else {
             var destroyable = other.GetComponent<DestroyAble>();

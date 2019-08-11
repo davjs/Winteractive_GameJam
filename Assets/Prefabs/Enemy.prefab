@@ -715,6 +715,10 @@ MonoBehaviour:
   retreating: 0
   Animator: {fileID: 4273643691823176927}
   attackChance: 0.1
+  reach: 0
+  DeadPrefab: {fileID: 6507175239265528277, guid: 94d49a13eac428a4cb9964bd2d70ad40,
+    type: 3}
+  BodyMesh: {fileID: 3373863183420168066}
 --- !u!54 &6507175239265528274
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -738,7 +742,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6507175239265528277}
-  m_Material: {fileID: 13400000, guid: efd18dcd65d1b5946a2d19e1d3ee95b1, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 5
@@ -814,7 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   HitPosition: {fileID: 8062523967286195681}
-  hitRadius: 12
+  hitRadius: 14
 --- !u!1 &8333043821552370356
 GameObject:
   m_ObjectHideFlags: 0

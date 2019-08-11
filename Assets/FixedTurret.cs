@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public static class Turrets {
+    public static Observable<int> count;
+}
+
 public class FixedTurret : MonoBehaviour {
     public float fireRate = 1.0f;
     public Rigidbody bullet;

@@ -28,6 +28,7 @@ MonoBehaviour:
   health: 2
   Drops: {fileID: 7728807473945237643, guid: 808fcf8c618c80c40bad2dc2791755b4, type: 3}
   DropCount: 4
+  mesh: {fileID: 5953366843174180128}
 --- !u!1001 &5953366843172277586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,6 +102,12 @@ PrefabInstance:
 --- !u!1 &5953366843172244466 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 9b27b908e66bddb42940797bc06df908,
+    type: 3}
+  m_PrefabInstance: {fileID: 5953366843172277586}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5953366843174180128 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300018, guid: 9b27b908e66bddb42940797bc06df908,
     type: 3}
   m_PrefabInstance: {fileID: 5953366843172277586}
   m_PrefabAsset: {fileID: 0}
