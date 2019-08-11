@@ -27,6 +27,6 @@ public class Spawner : MonoBehaviour {
             playerPos
             + Random.insideUnitCircle.normalized * (Random.value * 200.0f + 100.0f),
             Quaternion.identity);
-        enemy.speed *= Random.value * 2.0f;
+        enemy.speed *= Random.value * 1.8f;
     }
 }
